@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\data\Pagination;
+use yii\filters\auth\HttpBasicAuth;
 use yii;
 
 /**
@@ -33,6 +34,11 @@ class ProductController extends Controller
                 ],
             ]
         );
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBasicAuth::class,
+        ];
+        return $behaviors;
     }
 
     /**
@@ -50,10 +56,10 @@ class ProductController extends Controller
             'totalCount' => $dataProvider->getTotalCount(),
             'pageSize' => 10, // Số lượng sản phẩm trên mỗi trang
         ]);
-    
+
         // Thiết lập phân trang cho dữ liệu cung cấp
         $dataProvider->pagination = $pagination;
-    
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

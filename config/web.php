@@ -11,10 +11,18 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'v1' => [
+            'class' => 'app\modules\v1\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'bKNB2SFQZxzIq2gU4NDzCP3YK3dS0zAo',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -51,7 +59,7 @@ $config = [
                 NumberFormatter::MAX_FRACTION_DIGITS => 2,
             ],
         ],
-        
+     
      
         'urlManager' => [
             'enablePrettyUrl' => true,
